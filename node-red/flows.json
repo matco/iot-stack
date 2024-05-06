@@ -1,0 +1,129 @@
+[
+	{
+		"id": "w1",
+		"type": "tab",
+		"label": "Prototype workflow",
+		"disabled": false,
+		"info": "",
+		"env": []
+	},
+	{
+		"id": "count_config",
+		"type": "count-config",
+		"count": "3"
+	},
+	{
+		"id": "mqtt_broker",
+		"type": "mqtt-broker",
+		"name": "",
+		"broker": "mosquitto",
+		"port": "1883",
+		"clientid": "",
+		"autoConnect": true,
+		"usetls": false,
+		"protocolVersion": "4",
+		"keepalive": "60",
+		"cleansession": true,
+		"autoUnsubscribe": true,
+		"birthTopic": "",
+		"birthQos": "0",
+		"birthRetain": "false",
+		"birthPayload": "",
+		"birthMsg": {},
+		"closeTopic": "",
+		"closeQos": "0",
+		"closeRetain": "false",
+		"closePayload": "",
+		"closeMsg": {},
+		"willTopic": "",
+		"willQos": "0",
+		"willRetain": "false",
+		"willPayload": "",
+		"willMsg": {},
+		"userProps": "",
+		"sessionExpiry": ""
+	},
+	{
+		"id": "random_generator",
+		"type": "random-generator",
+		"z": "w1",
+		"count": "count_config",
+		"x": 250,
+		"y": 400,
+		"wires": [
+			[
+				"mqtt_out"
+			]
+		]
+	},
+	{
+		"id": "mqtt_out",
+		"type": "mqtt out",
+		"z": "w1",
+		"name": "",
+		"topic": "calculation",
+		"qos": "",
+		"retain": "",
+		"respTopic": "",
+		"contentType": "",
+		"userProps": "",
+		"correl": "",
+		"expiry": "",
+		"broker": "mqtt_broker",
+		"x": 490,
+		"y": 400,
+		"wires": []
+	},
+	{
+		"id": "mqtt_in",
+		"type": "mqtt in",
+		"z": "w1",
+		"name": "",
+		"topic": "calculation",
+		"qos": "2",
+		"datatype": "auto-detect",
+		"broker": "mqtt_broker",
+		"nl": false,
+		"rap": true,
+		"rh": 0,
+		"inputs": 0,
+		"x": 220,
+		"y": 520,
+		"wires": [
+			[
+				"sum_payload"
+			]
+		]
+	},
+	{
+		"id": "sum_payload",
+		"type": "sum-payload",
+		"z": "w1",
+		"name": "",
+		"x": 450,
+		"y": 520,
+		"wires": [
+			[
+				"calculation_mqtt_out"
+			]
+		]
+	},
+	{
+		"id": "calculation_mqtt_out",
+		"type": "mqtt out",
+		"z": "w1",
+		"name": "",
+		"topic": "reporting",
+		"qos": "",
+		"retain": "",
+		"respTopic": "",
+		"contentType": "",
+		"userProps": "",
+		"correl": "",
+		"expiry": "",
+		"broker": "mqtt_broker",
+		"x": 680,
+		"y": 520,
+		"wires": []
+	}
+]

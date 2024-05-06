@@ -1,0 +1,17 @@
+{
+	"files.exclude": {
+		"node-red/package-lock.json": true,
+		"node-red/node_modules": true,
+		"node-red/.*": true,
+		"node-red/settings.js": true,
+		"node-red/flows_cred.json": true,
+		"node-red/lib": true
+	},
+	"javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+	"javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+	"javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+	"typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+	"typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+	"typescript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+	"eslint.lintTask.enable": true
+}

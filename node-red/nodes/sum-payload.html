@@ -1,0 +1,15 @@
+<script type="text/javascript">
+	RED.nodes.registerType('sum-payload', {
+		category: 'function',
+		color: '#debd5c',
+		defaults: {
+			name: {value: ''}
+		},
+		inputs: 1,
+		outputs: 1,
+		icon: 'font-awesome/fa-plus',
+		label: function() {
+			return this.name || 'sum-payload';
+		}
+	});
+</script>

@@ -1,0 +1,46 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto
+    ports:
+      - 1883:1883
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      #we don't care about persistance
+      #- ./mosquitto/data:/mosquitto/data
+      #- ./mosquitto/log:/mosquitto/log
+
+  influxdb:
+    image: influxdb:2
+    #we don't care about persistance
+    #volumes:
+      #- ./influxdb/config:/etc/influxdb2
+      #- ./influxdb/data:/var/lib/influxdb2
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: Password1!
+      DOCKER_INFLUXDB_INIT_ORG: name.matco
+      DOCKER_INFLUXDB_INIT_BUCKET: iot-stack
+      DOCKER_INFLUXDB_INIT_RETENTION: 1d
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: 510336698abcb9a13cb314c13
+    ports:
+      - 8086:8086
+
+  nodered:
+    image: nodered/node-red
+    ports:
+      - 1880:1880
+    volumes:
+      - ./node-red:/data
+    restart: on-failure
+    depends_on:
+      - mosquitto
+
+  telegraf:
+    image: telegraf
+    volumes:
+      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    restart: on-failure
+    depends_on:
+      - mosquitto
+      - influxdb
